@@ -14,7 +14,59 @@
         <input type="submit" name="submit" value="Log In" />
         <p id="outputText"></p>
         <script type="text/javascript">
-          // YOUR CODE HERE
+          let usernameValue = "";
+          let passwordValue = "";
+
+          const usernameUpdateHandler = (event) => {
+            usernameValue = event.target.value;
+
+            if(usernameValue.length < 6) {
+              document.getElementById("username").style.borderBottomColor = "red";
+            } else {
+              document.getElementById("username").style.borderBottomColor = "auto";
+            }
+          }
+          function passwordUpdateHandler(event) {
+            passwordValue = event.target.value;
+            if(passwordValue.length < 8) {
+              document.getElementById("password").style.borderBottomColor = "red";
+            } else {
+              document.getElementById("password").style.borderBottomColor = "auto";
+            }
+          }
+
+          document.getElementById("username").addEventListener("change", usernameUpdateHandler);
+
+          document.getElementById("password").addEventListener("change", passwordUpdateHandler);
+
+          document.getElementById("form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            let outputBox = document.getElementById("outputText");
+
+            let outputText = "";
+
+            const uNameRegex = new RegExp("[a-zA-Z0-9]{6,}");
+
+            if(!uNameRegex.test(usernameValue)) {
+              outputText = "Invalid username!";
+              document.getElementById("username").style.borderBottomColor = "red";
+            }
+
+            const pwordRegex = new RegExp("[a-zA-Z0-9]{8,}");
+
+            if(!pwordRegex.test(passwordValue)) {
+              outputText += "<br />Invalid password!";
+              document.getElementById("password").style.borderBottomColor = "red";
+            }
+            if(usernameValue.length >= 6 && passwordValue.length >= 8) {
+              outputText = "You Entered: <br /> Username: " + usernameValue + "<br />Password: " + passwordValue;
+              document.getElementById("username").style.borderBottomColor = "black";
+              document.getElementById("password").style.borderBottomColor = "black";
+            }
+            outputBox.innerHTML = outputText;
+
+            return false;
+          });
         </script>
       </form>
     </div>
