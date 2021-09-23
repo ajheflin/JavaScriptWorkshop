@@ -14,21 +14,23 @@
         <input type="submit" name="submit" value="Log In" />
         <p id="outputText"></p>
         <script type="text/javascript">
-          let usernameValue = "";
-          let passwordValue = "";
+          let formState = {
+            username: "",
+            password: ""
+          }
 
           const usernameUpdateHandler = (event) => {
-            usernameValue = event.target.value;
+            formState.username = event.target.value;
 
-            if(usernameValue.length < 6) {
+            if(formState.username.length < 6) {
               document.getElementById("username").style.borderBottomColor = "red";
             } else {
               document.getElementById("username").style.borderBottomColor = "auto";
             }
           }
           function passwordUpdateHandler(event) {
-            passwordValue = event.target.value;
-            if(passwordValue.length < 8) {
+            formState.password = event.target.value;
+            if(formState.password.length < 8) {
               document.getElementById("password").style.borderBottomColor = "red";
             } else {
               document.getElementById("password").style.borderBottomColor = "auto";
@@ -47,19 +49,19 @@
 
             const uNameRegex = new RegExp("[a-zA-Z0-9]{6,}");
 
-            if(!uNameRegex.test(usernameValue)) {
+            if(!uNameRegex.test(formState.username)) {
               outputText = "Invalid username!";
               document.getElementById("username").style.borderBottomColor = "red";
             }
 
             const pwordRegex = new RegExp("[a-zA-Z0-9]{8,}");
 
-            if(!pwordRegex.test(passwordValue)) {
+            if(!pwordRegex.test(formState.password)) {
               outputText += "<br />Invalid password!";
               document.getElementById("password").style.borderBottomColor = "red";
             }
-            if(usernameValue.length >= 6 && passwordValue.length >= 8) {
-              outputText = "You Entered: <br /> Username: " + usernameValue + "<br />Password: " + passwordValue;
+            if(formState.username.length >= 6 && formState.password.length >= 8) {
+              outputText = "You Entered: <br /> Username: " + formState.username + "<br />Password: " + formState.password;
               document.getElementById("username").style.borderBottomColor = "black";
               document.getElementById("password").style.borderBottomColor = "black";
             }
